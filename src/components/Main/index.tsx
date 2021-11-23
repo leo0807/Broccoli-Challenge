@@ -17,7 +17,7 @@ const Main = () => {
   }, [])
   const renderFormContent = useMemo(() => {
 
-  const confirmValidator = (rule: any, value: string, callback: Function) => {
+  const confirmValidator = (rule: any, value: string, callback: any) => {
     if (value !== form.email) {
       callback("Two input email must be consistent.");
     }

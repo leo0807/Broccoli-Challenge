@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import Footer from './index';
-
+import React from 'react';
 // test page render container display text
 test('<Footer />', () => {
   render(<Footer />);
