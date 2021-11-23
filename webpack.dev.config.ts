@@ -3,7 +3,7 @@ import { Configuration, HotModuleReplacementPlugin } from "webpack";
 import HtmlWebpackPlugin from "html-webpack-plugin";
 
 const config: Configuration = {
-  mode: "development",
+  mode: "production",
   output: {
     publicPath: "/",
   },
