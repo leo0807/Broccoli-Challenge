@@ -1,7 +1,7 @@
 import React from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHeart } from '@fortawesome/free-solid-svg-icons'
-const Footer = () => {
+const Footer:React.FC = () => {
   return (
     <footer className="flex items-center justify-center h-16 bg-black">
       <div>

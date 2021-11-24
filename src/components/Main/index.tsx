@@ -1,7 +1,15 @@
 import React, {useState, useMemo, useCallback} from 'react'
 import { Button, Modal, Input, Form } from "antd";
 import { postRegister } from '../../utils/service';
-const Main = () => {
+import Schema from 'async-validator';
+Schema.warning = function () {
+  return;
+};
+interface FormType{
+  name: string,
+  email: string
+}
+const Main:React.FC = () => {
   const [form, setForm] = useState<any>({
     name: '',
     email: ''
@@ -19,9 +27,9 @@ const Main = () => {
 
   const confirmValidator = (rule: any, value: string, callback: any) => {
     if (value !== form.email) {
-      callback("Two input email must be consistent.");
+      return Promise.resolve("Two input email must be consistent.");
     }
-    callback();
+    return Promise.resolve();
   }
 
   const handleChange = (value: string | any) => {
@@ -48,6 +56,8 @@ const Main = () => {
             code: -1,
             message: "Error Message From Server"
           });
+          throw new Error(err);
+          
         }, 1500);
       })
     }
@@ -80,26 +90,26 @@ const Main = () => {
           >
             <Input placeholder="Email" />
           </Form.Item>
-                    <Form.Item
-                        name="confirmEmail"
-                        rules={[
-                            { required: true, message: "Please input your email!" },
-                            { validator: confirmValidator }
-                        ]}
-                    >
-                        <Input placeholder="Confirm email" />
-                    </Form.Item>
-                    <Form.Item>
-                        <Button 
-                            type="primary" 
-                            block={true} 
-                            htmlType="submit" 
-                            loading={loading}
-                        >
-                            {loading ? "Sending, please waiting..." : "Send"}
-                        </Button>
-                    </Form.Item>
-                    <div className="text-center text-red-600">{result && result.message}</div>
+          <Form.Item
+            name="confirmEmail"
+            rules={[
+              { required: true, message: "Please input your email!" },
+              { validator: confirmValidator }
+            ]}
+          >
+            <Input placeholder="Confirm email" />
+          </Form.Item>
+          <Form.Item>
+            <Button
+              type="primary"
+              block={true}
+              htmlType="submit" 
+              loading={loading}
+            >
+              {loading ? "Sending, please waiting..." : "Send"}
+            </Button>
+          </Form.Item>
+          <div className="text-center text-red-600">{result && result.message}</div>
         </Form>
       )
     } else {
